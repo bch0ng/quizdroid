@@ -56,7 +56,7 @@ class TopicOverviewFragment : Fragment() {
 
         topicDescription = view.findViewById(R.id.topic_description)
 
-        val repo = RepositoryInterface()
+        val repo = QuizApp.getInstance().accessRepo()
             //repo.intializeTopics()
 
         var description = "Description:\n"

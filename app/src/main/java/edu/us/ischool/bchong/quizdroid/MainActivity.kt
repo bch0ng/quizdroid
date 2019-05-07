@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val repo = RepositoryInterface()
+        val repo = QuizApp.getInstance().accessRepo()
 
         val topics = repo.getAllTopics()
 

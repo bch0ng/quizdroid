@@ -2,7 +2,7 @@ package edu.us.ischool.bchong.quizdroid
 
 import java.lang.Exception
 
-class RepositoryInterface : TopicRepositoryInterface {
+class Repository : TopicRepositoryInterface {
     private var topics: Map<String, Topic> = hashMapOf()
     private var allTopicsList: ArrayList<String> = ArrayList()
 
@@ -21,8 +21,6 @@ class RepositoryInterface : TopicRepositoryInterface {
         }
         return allTopicsList
     }
-
-
 
     init {
         val mathTopic = Topic("Math",

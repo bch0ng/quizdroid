@@ -5,12 +5,22 @@ import android.arch.lifecycle.LiveData
 
 
 class QuizApp : android.app.Application() {
+    private val repo: Repository = Repository()
+
     override fun onCreate() {
         super.onCreate()
         Log.d("QuizApp", "Loaded and running.")
     }
 
+    fun accessRepo(): Repository {
+        return this.repo
+    }
+
     companion object {
-        val instance = QuizApp()
+        private val instance: QuizApp = QuizApp()
+
+        fun getInstance(): QuizApp {
+            return instance
+        }
     }
 }

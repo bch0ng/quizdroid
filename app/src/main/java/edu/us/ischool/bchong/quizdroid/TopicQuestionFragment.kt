@@ -76,7 +76,7 @@ class TopicQuestionFragment : Fragment() {
         else if (topic == "Electronics")
             key = "electronics"
 
-        val repo = RepositoryInterface()
+        val repo = QuizApp.getInstance().accessRepo()
         val topic = repo.getTopic(key)
         questionCount = topic.questions.size
         val quizQuestion = topic.questions.get(index - 1)
