@@ -54,24 +54,27 @@ class TopicOverviewFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_topic_overview, container, false)
 
         topicTitle = view.findViewById(R.id.topic_title)
-        topicTitle.text = topic
+        topicTitle.text = "Topic: " + topic
 
         topicDescription = view.findViewById(R.id.topic_description)
-        var description = ""
+        var description = "Description:\n"
         if (topic == "Math") {
             question_count = getString(R.string.math_question_count).toInt()
-            description = getString(R.string.math_description) +
+            description += getString(R.string.math_description) +
                     "\n\nThis quiz has " + question_count + " questions."
         } else if (topic == "Physics") {
             question_count = getString(R.string.physics_question_count).toInt()
-            description = getString(R.string.physics_description) +
+            description += getString(R.string.physics_description) +
                     "\n\nThis quiz has " + question_count + " questions."
         } else if (topic == "Marvel Heroes") {
             question_count =  getString(R.string.marvel_question_count).toInt()
-            description = getString(R.string.marvel_description) +
+            description += getString(R.string.marvel_description) +
+                    "\n\nThis quiz has " + question_count + " questions."
+        } else if (topic == "Electronics") {
+            question_count = getString(R.string.electronics_question_count).toInt()
+            description += getString(R.string.electronics_description) +
                     "\n\nThis quiz has " + question_count + " questions."
         }
-
         topicDescription.text = description
 
         beginButton = view.findViewById(R.id.begin_button)

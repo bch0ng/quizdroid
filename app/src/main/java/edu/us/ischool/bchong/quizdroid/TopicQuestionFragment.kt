@@ -77,15 +77,12 @@ class TopicQuestionFragment : Fragment() {
             key = "physics"
         else if (topic == "Marvel Heroes")
             key = "marvel"
+        else if (topic == "Electronics")
+            key = "electronics"
 
 
         topicQuestion.text = getString(resources.getIdentifier(key + "_question" + index, "string", activity?.packageName))
-        /*
-        answerChoice1.text = getString(resources.getIdentifier(key + "_answer" + index + "_1", "string", activity?.packageName))
-        answerChoice2.text = getString(resources.getIdentifier(key + "_answer" + index + "_2", "string", activity?.packageName))
-        answerChoice3.text = getString(resources.getIdentifier(key + "_answer" + index + "_3", "string", activity?.packageName))
-        answerChoice4.text = getString(resources.getIdentifier(key + "_answer" + index + "_4", "string", activity?.packageName))
-        */
+
         var answer = ""
         for (i in 1..4) {
             val radioButton = view.findViewById<RadioButton>(getResources().getIdentifier("answer_choice" + i, "id", activity?.packageName))

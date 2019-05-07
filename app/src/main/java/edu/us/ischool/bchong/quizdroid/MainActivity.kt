@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = CategoryAdapter(listOf("Math", "Physics", "Marvel Heroes"))
+        viewAdapter = CategoryAdapter(listOf("Math", "Physics", "Marvel Heroes", "Electronics"))
 
         recyclerView = my_recycler_view.apply {
             // use this setting to improve performance if you know that changes
