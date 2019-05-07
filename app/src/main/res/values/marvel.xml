@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="marvel_description">
+        Questions about Marvel super heroes from comics and cinema.
+    </string>
+
+    <string name="marvel_question_count">2</string>
+    <string name="marvel_question1">
+        Who is the man acting as super hero Spider-man in the 2002 film Spider-Man?
+    </string>
+        <string name="marvel_answer1_1">[CORRECT]Peter Parker</string>
+        <string name="marvel_answer1_2">Tony Stark</string>
+        <string name="marvel_answer1_3">Steve Rogers</string>
+        <string name="marvel_answer1_4">Thanos</string>
+    <string name="marvel_question2">
+        What is the super hero name of Tony Stark in the 2008 film Iron Man?
+    </string>
+        <string name="marvel_answer2_1">Captain America</string>
+        <string name="marvel_answer2_2">Thanos</string>
+        <string name="marvel_answer2_3">[CORRECT]Iron Man</string>
+        <string name="marvel_answer2_4">Hulk</string>
+</resources>
