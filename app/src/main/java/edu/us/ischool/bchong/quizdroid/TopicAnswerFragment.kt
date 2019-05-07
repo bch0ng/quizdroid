@@ -74,8 +74,10 @@ class TopicAnswerFragment : Fragment() {
             nextButton.text = "Finish"
         }
 
-        topicAnswer.text = "Correct Answer: " + this.answer
-        topicChosenAnswer.text = "Your Answer: " + this.selectedAnswer
+        val topicAnswerString = "Correct Answer: " + this.answer
+        topicAnswer.text = topicAnswerString
+        val topicChosenAnswerString = "Your Answer: " + this.selectedAnswer
+        topicChosenAnswer.text = topicChosenAnswerString
         val quizStatString = "You have " + this.correctCount + " out of " + this.questionIndex + " correct"
         topicQuizStats.text = quizStatString
 

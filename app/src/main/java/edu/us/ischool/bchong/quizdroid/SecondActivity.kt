@@ -33,7 +33,7 @@ class SecondActivity : AppCompatActivity(),
         setContentView(R.layout.second_activity)
 
         val intent = intent
-        this.message = intent.getStringExtra(EXTRA_MESSAGE)
+        this.message = intent.getStringExtra("param1")
 
         this.fragmentManager = supportFragmentManager
         this.fragmentTransaction = this.fragmentManager.beginTransaction()

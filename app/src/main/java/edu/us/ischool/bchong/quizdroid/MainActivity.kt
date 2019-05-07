@@ -5,10 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
-const val EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE"
+private const val TOPIC_NAME = "param1"
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,8 +19,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val repo = RepositoryInterface()
+
+        val topics = repo.getAllTopics()
+
         viewManager = LinearLayoutManager(this)
-        viewAdapter = CategoryAdapter(listOf("Math", "Physics", "Marvel Heroes", "Electronics"))
+        viewAdapter = CategoryAdapter(topics)
 
         recyclerView = my_recycler_view.apply {
             // use this setting to improve performance if you know that changes
@@ -35,10 +38,10 @@ class MainActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-        (viewAdapter as CategoryAdapter).onCategoryClickedListener = { position, name ->
+        (viewAdapter as CategoryAdapter).onCategoryClickedListener = { _, name ->
             //oast.makeText(this, "$name clicked!", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, SecondActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, name)
+                putExtra(TOPIC_NAME, name)
             }
             startActivity(intent)
         }

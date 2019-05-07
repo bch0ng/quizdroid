@@ -1,8 +1,6 @@
 package edu.us.ischool.bchong.quizdroid
 
-import android.content.ClipDescription
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -61,10 +59,8 @@ class TopicQuestionFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_topic_question, container, false)
 
-        questionCount = getString(R.string.math_question_count).toInt()
-
         topicQuestion = view.findViewById(R.id.topic_question)
-        answerChoices = view.findViewById<RadioGroup>(R.id.answer_choices)
+        answerChoices = view.findViewById(R.id.answer_choices)
         answerChoice1 = view.findViewById(R.id.answer_choice1)
         answerChoice2 = view.findViewById(R.id.answer_choice2)
         answerChoice3 = view.findViewById(R.id.answer_choice3)
@@ -80,15 +76,17 @@ class TopicQuestionFragment : Fragment() {
         else if (topic == "Electronics")
             key = "electronics"
 
-
-        topicQuestion.text = getString(resources.getIdentifier(key + "_question" + index, "string", activity?.packageName))
+        val repo = RepositoryInterface()
+        val topic = repo.getTopic(key)
+        questionCount = topic.questions.size
+        val quizQuestion = topic.questions.get(index - 1)
+        topicQuestion.text = quizQuestion.questionText
 
         var answer = ""
         for (i in 1..4) {
             val radioButton = view.findViewById<RadioButton>(getResources().getIdentifier("answer_choice" + i, "id", activity?.packageName))
-            var answerChoice = getString(resources.getIdentifier(key + "_answer" + index + "_" + i, "string", activity?.packageName))
-            if (answerChoice.contains("[CORRECT]")) {
-                answerChoice = answerChoice.replace("[CORRECT]", "")
+            var answerChoice = quizQuestion.answers.get(i - 1)
+            if (i == quizQuestion.correctAnswerIndex + 1) {
                 answer = answerChoice
             }
             radioButton.text = answerChoice

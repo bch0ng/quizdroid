@@ -1,8 +1,6 @@
 package edu.us.ischool.bchong.quizdroid
 
-import android.content.ClipDescription
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -11,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 
 private const val TOPIC_NAME = "param1"
 
@@ -54,25 +51,34 @@ class TopicOverviewFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_topic_overview, container, false)
 
         topicTitle = view.findViewById(R.id.topic_title)
-        topicTitle.text = "Topic: " + topic
+        val topicTitleString = "Topic: " + topic
+        topicTitle.text = topicTitleString
 
         topicDescription = view.findViewById(R.id.topic_description)
+
+        val repo = RepositoryInterface()
+            //repo.intializeTopics()
+
         var description = "Description:\n"
         if (topic == "Math") {
-            question_count = getString(R.string.math_question_count).toInt()
-            description += getString(R.string.math_description) +
+            val math = repo.getTopic("math")
+            question_count = math.questions.size
+            description += math.shortDescription +
                     "\n\nThis quiz has " + question_count + " questions."
         } else if (topic == "Physics") {
-            question_count = getString(R.string.physics_question_count).toInt()
-            description += getString(R.string.physics_description) +
+            val physics = repo.getTopic("physics")
+            question_count = physics.questions.size
+            description += physics.shortDescription +
                     "\n\nThis quiz has " + question_count + " questions."
         } else if (topic == "Marvel Heroes") {
-            question_count =  getString(R.string.marvel_question_count).toInt()
-            description += getString(R.string.marvel_description) +
+            val marvel = repo.getTopic("marvel")
+            question_count = marvel.questions.size
+            description += marvel.shortDescription +
                     "\n\nThis quiz has " + question_count + " questions."
         } else if (topic == "Electronics") {
-            question_count = getString(R.string.electronics_question_count).toInt()
-            description += getString(R.string.electronics_description) +
+            val electronics = repo.getTopic("electronics")
+            question_count = electronics.questions.size
+            description += electronics.shortDescription +
                     "\n\nThis quiz has " + question_count + " questions."
         }
         topicDescription.text = description
