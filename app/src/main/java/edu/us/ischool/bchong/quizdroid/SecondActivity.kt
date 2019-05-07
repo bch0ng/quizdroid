@@ -12,7 +12,9 @@ import android.widget.Toast
 
 class SecondActivity : AppCompatActivity(),
         TopicOverviewFragment.OnBeginClickedListener,
-        TopicQuestionFragment.OnSubmitClickedListener {
+        TopicQuestionFragment.OnSubmitClickedListener,
+        TopicAnswerFragment.OnNextClickedListener
+{
 
     private lateinit var topicTitle: TextView
     private lateinit var topicDescription: TextView
@@ -51,12 +53,23 @@ class SecondActivity : AppCompatActivity(),
     }
 
     override fun onSubmitClicked(selectedAnswer: String, answer: String) {
-        this.question_index++
         if (selectedAnswer == answer)
             this.answer_count++
-        //val fragment3 = TopicAnswerFragment.newInstance(selected_answer, correct_answer, question_index, question_count)
+        val fragment3 = TopicAnswerFragment.newInstance(selectedAnswer, answer, answer_count, question_count, question_index)
         this.fragmentTransaction = this.fragmentManager.beginTransaction()
-        //this.fragmentTransaction.replace(R.id.second_activity, fragment3)
+        this.fragmentTransaction.replace(R.id.second_activity, fragment3)
         this.fragmentTransaction.commit()
+    }
+
+    override fun onNextClicked() {
+        if (question_index == question_count) {
+            this.finish()
+        } else {
+            this.question_index++
+            val fragment4 = TopicQuestionFragment.newInstance(this.message, this.question_index)
+            this.fragmentTransaction = this.fragmentManager.beginTransaction()
+            this.fragmentTransaction.replace(R.id.second_activity, fragment4)
+            this.fragmentTransaction.commit()
+        }
     }
 }

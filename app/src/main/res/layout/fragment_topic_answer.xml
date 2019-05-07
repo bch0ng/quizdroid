@@ -5,15 +5,29 @@
              android:layout_height="match_parent"
              tools:context=".TopicAnswerFragment">
 
-    <TextView
-            android:id="@+id/topic_answer"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
-    <TextView
-            android:id="@+id/topic_chosen_answer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
-
+            android:orientation="vertical">
+        <TextView
+                android:id="@+id/topic_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hello_blank_fragment"/>
+        <TextView
+                android:id="@+id/topic_chosen_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hello_blank_fragment"/>
+        <TextView
+                android:id="@+id/quiz_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hello_blank_fragment"/>
+        <Button
+                android:id="@+id/answer_next_button"
+                android:text="Next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
 </FrameLayout>
