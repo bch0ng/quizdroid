@@ -18,7 +18,7 @@ class TopicOverviewFragment : Fragment() {
     private lateinit var topicDescription: TextView
     private lateinit var beginButton: Button
 
-    private var topic: String? = null
+    private var topic: String = ""
     private var question_count: Int = 0
 
     var listener: OnBeginClickedListener? = null
@@ -57,30 +57,14 @@ class TopicOverviewFragment : Fragment() {
         topicDescription = view.findViewById(R.id.topic_description)
 
         val repo = QuizApp.getInstance().accessRepo()
-            //repo.intializeTopics()
 
         var description = "Description:\n"
-        if (topic == "Math") {
-            val math = repo.getTopic("math")
-            question_count = math.questions.size
-            description += math.shortDescription +
-                    "\n\nThis quiz has " + question_count + " questions."
-        } else if (topic == "Physics") {
-            val physics = repo.getTopic("physics")
-            question_count = physics.questions.size
-            description += physics.shortDescription +
-                    "\n\nThis quiz has " + question_count + " questions."
-        } else if (topic == "Marvel Heroes") {
-            val marvel = repo.getTopic("marvel")
-            question_count = marvel.questions.size
-            description += marvel.shortDescription +
-                    "\n\nThis quiz has " + question_count + " questions."
-        } else if (topic == "Electronics") {
-            val electronics = repo.getTopic("electronics")
-            question_count = electronics.questions.size
-            description += electronics.shortDescription +
-                    "\n\nThis quiz has " + question_count + " questions."
-        }
+        val key = repo.getTopic(topic)
+        question_count = key.questions.size
+        description += key.shortDescription +
+                "\n\nThis quiz has " + question_count +
+                (if (question_count === 1) " question." else " questions.")
+
         topicDescription.text = description
 
         beginButton = view.findViewById(R.id.begin_button)

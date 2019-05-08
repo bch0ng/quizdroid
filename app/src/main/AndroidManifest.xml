@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.us.ischool.bchong.quizdroid">
-
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <application
             android:allowBackup="true"
             android:name="edu.us.ischool.bchong.quizdroid.QuizApp"
@@ -20,5 +20,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

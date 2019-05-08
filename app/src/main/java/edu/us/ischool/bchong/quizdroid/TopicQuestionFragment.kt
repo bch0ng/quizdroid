@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.RadioButton
 
-
-
 private const val TOPIC_NAME = "param1"
 private const val INDEX = "param2"
 
@@ -25,7 +23,7 @@ class TopicQuestionFragment : Fragment() {
     private lateinit var answerChoice4: RadioButton
     private lateinit var submitButton: Button
 
-    private var topic: String? = null
+    private var topic: String = ""
     private var index: Int = -1
     private var questionCount: Int = 0
 
@@ -39,7 +37,7 @@ class TopicQuestionFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             topic = it.getString(TOPIC_NAME)
-            index =it.getInt(INDEX)
+            index = it.getInt(INDEX)
         }
         Log.i("QUESTION", "TOPIC: $topic, QUESTION: $index")
     }
@@ -66,15 +64,7 @@ class TopicQuestionFragment : Fragment() {
         answerChoice3 = view.findViewById(R.id.answer_choice3)
         answerChoice4 = view.findViewById(R.id.answer_choice4)
 
-        var key = ""
-        if (topic == "Math")
-            key = "math"
-        else if (topic == "Physics")
-            key = "physics"
-        else if (topic == "Marvel Heroes")
-            key = "marvel"
-        else if (topic == "Electronics")
-            key = "electronics"
+        var key = topic
 
         val repo = QuizApp.getInstance().accessRepo()
         val topic = repo.getTopic(key)
@@ -86,7 +76,7 @@ class TopicQuestionFragment : Fragment() {
         for (i in 1..4) {
             val radioButton = view.findViewById<RadioButton>(getResources().getIdentifier("answer_choice" + i, "id", activity?.packageName))
             var answerChoice = quizQuestion.answers.get(i - 1)
-            if (i == quizQuestion.correctAnswerIndex + 1) {
+            if (i == quizQuestion.correctAnswerIndex) {
                 answer = answerChoice
             }
             radioButton.text = answerChoice
