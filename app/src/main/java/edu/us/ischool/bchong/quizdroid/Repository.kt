@@ -5,6 +5,7 @@ import android.util.Log
 import java.io.File
 import java.lang.Exception
 import android.util.JsonReader
+import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import org.json.JSONArray
@@ -12,6 +13,10 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.FileReader
 import java.io.InputStreamReader
+import java.net.URL
+import java.util.concurrent.Executors
+import android.os.StrictMode
+
 
 
 class Repository : TopicRepositoryInterface {
@@ -36,8 +41,23 @@ class Repository : TopicRepositoryInterface {
 
     init {
         val path = Environment.getDataDirectory().absolutePath
-        val file = File("$path/questions.json")
-        val jsonArray = JSONArray(file.readText())
+        //val file = File("$path/questions.json")
+
+        // Bad practice
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        val file = URL("http://tednewardsandbox.site44.com/questions.json")
+        //Log.i("BRANDON", file.readText())
+        parseJSON(file.readText())
+
+        // Ideal practice
+        Executors.newSingleThreadExecutor().execute {
+        }
+    }
+
+    fun parseJSON(json: String) {
+        val jsonArray = JSONArray(json)
         val gson = Gson()
         for (i in 0..(jsonArray.length() - 1)) {
             val jsonTopic = jsonArray.getJSONObject(i)
@@ -59,52 +79,13 @@ class Repository : TopicRepositoryInterface {
                 questionList.add(Quiz(questionText, answers, answer.toString().toInt()))
             }
 
-            val topic = Topic(jsonTopic.get("title").toString(),
-                    jsonTopic.get("desc").toString(),
-                    jsonTopic.get("desc").toString(),
-                    questionList)
-            topics.put(jsonTopic.get("title").toString(), topic)
+            val topic = Topic(
+                jsonTopic.get("title").toString(),
+                jsonTopic.get("desc").toString(),
+                jsonTopic.get("desc").toString(),
+                questionList
+            )
+            this.topics.put(jsonTopic.get("title").toString(), topic)
         }
-        /*
-
-        val mathTopic = Topic("Math",
-            "Math questions focusing on addition, subtraction, division, and multiplication.",
-            "Math questions focusing on addition, subtraction, division, and multiplication.",
-            listOf(Quiz("2 + 2 = _", listOf("4", "2", "0", "-4"), 0),
-                    Quiz("2 + 3 * 5 = _", listOf("-17", "17", "30", "-30"), 1)))
-
-        val physicsTopic = Topic("Physics",
-            "Physics questions focusing on mechanics, electromagnetism, and waves+optics.",
-            "Physics questions focusing on mechanics, electromagnetism, and waves+optics.",
-            listOf(Quiz("Who is credited with the Theory of Relativity?",
-                        listOf("Albert Einstein", "Isaac Newton", "Stephen Hawking", "Brandon Chong"),
-                0),
-                Quiz("Who formulated the Laws of Motion?",
-                        listOf("Albert Einstein", "Isaac Newton", "Stephen Hawking", "Brandon Chong"),
-                1)))
-
-        val marvelTopic = Topic("Marvel Heroes",
-            "Questions about Marvel super heroes from comics and cinema.",
-            "Questions about Marvel super heroes from comics and cinema.",
-            listOf(Quiz("Who is the man acting as super hero Spider-man in the 2002 film Spider-Man?",
-                listOf("Peter Parker", "Tony Stark", "Steve Rogers", "Thanos"),
-                0),
-                Quiz("What is the super hero name of Tony Stark in the 2008 film Iron Man?",
-                    listOf("Captain America", "Thanos", "Iron Man", "Brandon Chong"),
-                    2)))
-
-        val electronicsTopic = Topic("Electronics",
-            "Questions about Electronical devices.",
-            "Questions about Electronical devices.",
-            listOf(Quiz("What company creating the XBox?",
-                listOf("Microsoft", "Nintendo", "Sony", "SEGA"),
-                0),
-                Quiz("What is the name of Apple's mobile phones?",
-                    listOf("Galaxy", "Pixel", "iPhone", "iPad"),
-                    2)))
-
-        this.topics = hashMapOf("math" to mathTopic, "physics" to physicsTopic,
-                "marvel" to marvelTopic, "electronics" to electronicsTopic)
-         */
     }
 }
