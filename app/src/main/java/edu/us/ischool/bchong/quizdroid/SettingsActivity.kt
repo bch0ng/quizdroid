@@ -1,8 +1,10 @@
 package edu.us.ischool.bchong.quizdroid
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -13,7 +15,7 @@ class SettingsActivity : AppCompatActivity() {
         Log.i("BRANDON", "Settings Activity")
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.settings_container, SettingsFragment())
+            .replace(R.id.settings_container, SettingsFragment())
             .commit()
     }
 

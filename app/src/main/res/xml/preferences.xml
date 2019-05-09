@@ -1,12 +1,15 @@
 <androidx.preference.PreferenceScreen
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-    <Preference
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
             app:key="url"
             app:title="Questions Data URL"
             app:summary="Where to fetch questions from"/>
-    <Preference
+    <EditTextPreference
             app:key="refresh"
             app:title="Refreshing dataset in minutes"
+            android:inputType="numberDecimal"
+            android:digits="0123456789"
             app:summary="How often to check for new data"/>
 
 </androidx.preference.PreferenceScreen>
