@@ -1,0 +1,12 @@
+<androidx.preference.PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+            app:key="url"
+            app:title="Questions Data URL"
+            app:summary="Where to fetch questions from"/>
+    <Preference
+            app:key="refresh"
+            app:title="Refreshing dataset in minutes"
+            app:summary="How often to check for new data"/>
+
+</androidx.preference.PreferenceScreen>

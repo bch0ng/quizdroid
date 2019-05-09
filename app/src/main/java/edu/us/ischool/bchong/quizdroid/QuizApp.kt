@@ -1,7 +1,6 @@
 package edu.us.ischool.bchong.quizdroid
 
 import android.util.Log
-import android.arch.lifecycle.LiveData
 
 
 class QuizApp : android.app.Application() {

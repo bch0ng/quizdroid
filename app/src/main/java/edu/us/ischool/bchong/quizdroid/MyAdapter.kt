@@ -1,10 +1,10 @@
 package edu.us.ischool.bchong.quizdroid
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 
 class CategoryAdapter(var myDataset: List<String>) : RecyclerView.Adapter<CategoryAdapter.CategoryHolder>() {
 

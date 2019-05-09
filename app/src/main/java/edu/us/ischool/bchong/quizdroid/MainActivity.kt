@@ -1,11 +1,16 @@
 package edu.us.ischool.bchong.quizdroid
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 private const val TOPIC_NAME = "param1"
 
@@ -18,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         val repo = QuizApp.getInstance().accessRepo()
 
@@ -26,24 +32,36 @@ class MainActivity : AppCompatActivity() {
         viewManager = LinearLayoutManager(this)
         viewAdapter = CategoryAdapter(topics)
 
-        recyclerView = my_recycler_view.apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
-
-            // use a linear layout manager
-            layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-        }
+        recyclerView = my_recycler_view
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = viewManager
+        recyclerView.adapter = viewAdapter
 
         (viewAdapter as CategoryAdapter).onCategoryClickedListener = { _, name ->
-            //oast.makeText(this, "$name clicked!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "$name clicked!", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, SecondActivity::class.java).apply {
                 putExtra(TOPIC_NAME, name)
             }
             startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.my_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                Log.i("BRANDON", "Main Activity")
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
