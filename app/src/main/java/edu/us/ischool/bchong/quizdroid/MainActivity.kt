@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 
+
+
 private const val TOPIC_NAME = "param1"
 
 class MainActivity : AppCompatActivity() {
@@ -22,31 +24,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var repo: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        val repo = QuizApp.getInstance().accessRepo()
-
-        val topics = repo.getAllTopics()
-
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = CategoryAdapter(topics)
 
         recyclerView = my_recycler_view
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = viewManager
-        recyclerView.adapter = viewAdapter
 
-        (viewAdapter as CategoryAdapter).onCategoryClickedListener = { _, name ->
-            //Toast.makeText(this, "$name clicked!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, SecondActivity::class.java).apply {
-                putExtra(TOPIC_NAME, name)
-            }
-            startActivity(intent)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -59,12 +46,35 @@ class MainActivity : AppCompatActivity() {
         // Handle item selection
         return when (item.itemId) {
             R.id.action_settings -> {
-                Log.i("BRANDON", "Main Activity")
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        repo = QuizApp().accessRepo()
+
+        recyclerView.removeAllViews()
+        recyclerView.adapter?.notifyDataSetChanged()
+
+        val topics =  repo.getAllTopics()
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = CategoryAdapter(topics)
+
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = viewManager
+        recyclerView.adapter = viewAdapter
+
+        (viewAdapter as CategoryAdapter).onCategoryClickedListener = { _, name ->
+            //Toast.makeText(this, "$name clicked!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, SecondActivity::class.java).apply {
+                putExtra(TOPIC_NAME, name)
+            }
+            startActivity(intent)
         }
     }
 }

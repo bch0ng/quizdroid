@@ -11,5 +11,9 @@
             android:inputType="numberDecimal"
             android:digits="0123456789"
             app:summary="How often to check for new data"/>
+    <Preference
+            app:title="Fetch Data"
+            app:key="fetch_button"
+            app:summary="Click to fetch data"/>
 
 </androidx.preference.PreferenceScreen>

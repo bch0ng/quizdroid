@@ -17,6 +17,7 @@ class SettingsActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.settings_container, SettingsFragment())
             .commit()
+
     }
 
 }

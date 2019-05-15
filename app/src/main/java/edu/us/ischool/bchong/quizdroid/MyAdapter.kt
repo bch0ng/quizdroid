@@ -39,6 +39,10 @@ class CategoryAdapter(var myDataset: List<String>) : RecyclerView.Adapter<Catego
         // holder.textView.text = myDataset[position]
     }
 
+    fun refreshDataset() {
+        notifyDataSetChanged()
+    }
+
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
 }
